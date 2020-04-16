@@ -15,14 +15,26 @@ type AuthPayload {
   token: String!
 }
 
+type Author {
+  id: ID!
+  name: String!
+  country: String!
+  register_by: Int!
+}
+
 type Query {
   user(id: ID!): User!
   users: [User!]!
+  author(id: ID!): Author!
+  authors: [Author!]!
 }
 
 type Mutation {
   signUp(data: signUpInput!): AuthPayload!
   login(data: loginInput!): AuthPayload!
+  createAuthor(data: createAuthorInput!): Author!
+  updateAuthor(data: updateAuthorInput!, id: ID!): Author!
+  deleteAuthor(id: ID!): Author!
 }
 
 input signUpInput {
@@ -35,4 +47,16 @@ input signUpInput {
 input loginInput {
   email: String!
   password: String!
+}
+
+input createAuthorInput {
+  name: String!
+  country: String!
+  register_by: ID!
+}
+
+input updateAuthorInput {
+  name: String
+  country: String
+  register_by: ID
 }
