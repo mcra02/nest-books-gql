@@ -14,3 +14,12 @@ export class Author {
   @Field(type => Int, { nullable: false })
   register_by: number;
 }
+
+@ObjectType()
+export class AuthorSubscriptionPayload {
+  @Field()
+  mutation: string;
+
+  @Field(type => Author)
+  data: Author;
+}

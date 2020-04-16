@@ -22,6 +22,11 @@ type Author {
   register_by: Int!
 }
 
+type AuthorSubscriptionPayload {
+  mutation: String!
+  data: Author!
+}
+
 type Query {
   user(id: ID!): User!
   users: [User!]!
@@ -59,4 +64,8 @@ input updateAuthorInput {
   name: String
   country: String
   register_by: ID
+}
+
+type Subscription {
+  authorsSubscription: AuthorSubscriptionPayload!
 }

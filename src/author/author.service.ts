@@ -13,7 +13,7 @@ export class AuthorService {
     return await author;
   }
 
-  async createAuthor(data, prisma) {
+  async createAuthor(data, prisma, pubsub) {
     const { register_by, ...rest } = data;
 
     const user = await isUser(register_by, prisma);
@@ -33,10 +33,19 @@ export class AuthorService {
       },
     });
 
+    console.log(author);
+
+    pubsub.publish('authors', {
+      authorsSubscription: {
+        mutation: 'CREATED',
+        data: author,
+      },
+    });
+
     return author;
   }
 
-  async updateAuthor(id, data, prisma) {
+  async updateAuthor(id, data, prisma, pubsub) {
     const { register_by, ...rest } = data;
 
     const author = await isAuthor(id, prisma);
@@ -68,7 +77,7 @@ export class AuthorService {
     return authorUpdated;
   }
 
-  async deleteAuthor(id, prisma) {
+  async deleteAuthor(id, prisma, pubsub) {
     const author = await isAuthor(id, prisma);
 
     if (!author) {
