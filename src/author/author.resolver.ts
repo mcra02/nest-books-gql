@@ -8,8 +8,8 @@ import {
 import { AuthorService } from './author.service';
 import { Query } from '@nestjs/graphql';
 import { Author, AuthorSubscriptionPayload } from './models/author.model';
-import { getAuthorArgs } from './DTO/author.args';
-import { createAuthorInput, updateAuthorInput } from './DTO/author.input';
+import { GetAuthorArgs } from './DTO/author.args';
+import { CreateAuthorInput, UpdateAuthorInput } from './DTO/author.input';
 
 @Resolver('Author')
 export class AuthorResolver {
@@ -17,7 +17,7 @@ export class AuthorResolver {
 
   @Query(returns => Author)
   async author(
-    @Args() { id }: getAuthorArgs,
+    @Args() { id }: GetAuthorArgs,
     @Context() { prisma },
   ): Promise<Author> {
     return await this.authorService.getAuthor(id, prisma);
@@ -30,7 +30,7 @@ export class AuthorResolver {
 
   @Mutation(returns => Author)
   async createAuthor(
-    @Args('data') data: createAuthorInput,
+    @Args('data') data: CreateAuthorInput,
     @Context() { prisma, pubsub },
   ) {
     return await this.authorService.createAuthor(data, prisma, pubsub);
@@ -38,8 +38,8 @@ export class AuthorResolver {
 
   @Mutation(returns => Author)
   async updateAuthor(
-    @Args() { id }: getAuthorArgs,
-    @Args('data') data: updateAuthorInput,
+    @Args() { id }: GetAuthorArgs,
+    @Args('data') data: UpdateAuthorInput,
     @Context() { prisma, pubsub },
   ) {
     return await this.authorService.updateAuthor(id, data, prisma, pubsub);
@@ -47,7 +47,7 @@ export class AuthorResolver {
 
   @Mutation(returns => Author)
   async deleteAuthor(
-    @Args() { id }: getAuthorArgs,
+    @Args() { id }: GetAuthorArgs,
     @Context() { prisma, pubsub },
   ) {
     return await this.authorService.deleteAuthor(id, prisma, pubsub);

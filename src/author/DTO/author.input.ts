@@ -3,7 +3,7 @@ import { MinLength } from 'class-validator';
 import { User } from 'src/user/models/user.model';
 
 @InputType()
-export class createAuthorInput {
+export class CreateAuthorInput {
   @MinLength(3)
   @Field({ nullable: false })
   name: string;
@@ -17,4 +17,4 @@ export class createAuthorInput {
 }
 
 @InputType()
-export class updateAuthorInput extends PartialType(createAuthorInput) {}
+export class UpdateAuthorInput extends PartialType(CreateAuthorInput) {}

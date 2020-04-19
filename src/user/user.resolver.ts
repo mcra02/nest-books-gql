@@ -8,7 +8,7 @@ import {
 } from '@nestjs/graphql';
 import { User, AuthPayload } from './models/user.model';
 import { getUserArgs } from './DTO/user.args';
-import { signUpInput, loginInput } from './DTO/user.input';
+import { SignUpInput, LoginInput } from './DTO/user.input';
 import { UserService } from './user.service';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/app.service';
@@ -32,12 +32,12 @@ export class UserResolver {
   }
 
   @Mutation(returns => AuthPayload)
-  async signUp(@Args('data') data: signUpInput, @Context() { prisma }) {
+  async signUp(@Args('data') data: SignUpInput, @Context() { prisma }) {
     return await this.userSevice.signUp({ data }, prisma);
   }
 
   @Mutation(returns => AuthPayload)
-  async login(@Args('data') data: loginInput, @Context() { prisma }) {
+  async login(@Args('data') data: LoginInput, @Context() { prisma }) {
     return await this.userSevice.login(data, prisma);
   }
 }

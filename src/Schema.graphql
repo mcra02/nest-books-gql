@@ -35,32 +35,32 @@ type Query {
 }
 
 type Mutation {
-  signUp(data: signUpInput!): AuthPayload!
-  login(data: loginInput!): AuthPayload!
-  createAuthor(data: createAuthorInput!): Author!
-  updateAuthor(data: updateAuthorInput!, id: ID!): Author!
+  signUp(data: SignUpInput!): AuthPayload!
+  login(data: LoginInput!): AuthPayload!
+  createAuthor(data: CreateAuthorInput!): Author!
+  updateAuthor(data: UpdateAuthorInput!, id: ID!): Author!
   deleteAuthor(id: ID!): Author!
 }
 
-input signUpInput {
+input SignUpInput {
   name: String!
   lastname: String!
   password: String!
   email: String!
 }
 
-input loginInput {
+input LoginInput {
   email: String!
   password: String!
 }
 
-input createAuthorInput {
+input CreateAuthorInput {
   name: String!
   country: String!
   register_by: ID!
 }
 
-input updateAuthorInput {
+input UpdateAuthorInput {
   name: String
   country: String
   register_by: ID
