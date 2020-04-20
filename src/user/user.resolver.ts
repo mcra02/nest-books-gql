@@ -5,6 +5,7 @@ import {
   Context,
   Mutation,
   Parent,
+  ResolveField,
 } from '@nestjs/graphql';
 import { User, AuthPayload } from './models/user.model';
 import { getUserArgs } from './DTO/user.args';
@@ -17,6 +18,7 @@ import { GqlAuthGuard } from 'src/app.service';
 export class UserResolver {
   constructor(private readonly userSevice: UserService) {}
 
+  @UseGuards(GqlAuthGuard)
   @Query(returns => User)
   async user(
     @Args() { id }: getUserArgs,

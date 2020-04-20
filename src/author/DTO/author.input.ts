@@ -13,7 +13,7 @@ export class CreateAuthorInput {
   country: string;
 
   @Field(type => ID, { nullable: false })
-  register_by: User;
+  register_by: number;
 }
 
 @InputType()

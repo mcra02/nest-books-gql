@@ -6,11 +6,10 @@ import { isAuthor } from './author.utils';
 export class AuthorService {
   async getAuthor(id, prisma) {
     const author = await isAuthor(id, prisma);
-    console.log(author);
     if (!author) {
       throw new Error('Author is not exists!');
     }
-    return await author;
+    return author;
   }
 
   async createAuthor(data, prisma, pubsub) {
@@ -22,7 +21,7 @@ export class AuthorService {
       throw new Error('Relation register_by is not exists!');
     }
 
-    const author = await prisma.authors.create({
+    const authorCreated = await prisma.authors.create({
       data: {
         ...rest,
         users: {
@@ -33,16 +32,14 @@ export class AuthorService {
       },
     });
 
-    console.log(author);
-
     pubsub.publish('authors', {
       authorsSubscription: {
         mutation: 'CREATED',
-        data: author,
+        data: authorCreated,
       },
     });
 
-    return author;
+    return authorCreated;
   }
 
   async updateAuthor(id, data, prisma, pubsub) {
@@ -74,6 +71,13 @@ export class AuthorService {
       },
     });
 
+    pubsub.publish('authors', {
+      authorsSubscription: {
+        mutation: 'UPDATED',
+        data: authorUpdated,
+      },
+    });
+
     return authorUpdated;
   }
 
@@ -89,6 +93,25 @@ export class AuthorService {
         id: Number(id),
       },
     });
+
+    pubsub.publish('authors', {
+      authorsSubscription: {
+        mutation: 'DELETED',
+        data: authorDeleted,
+      },
+    });
+
     return authorDeleted;
+  }
+
+  async registerByField(parent, prisma) {
+    const { id } = parent;
+    return await prisma.authors
+      .findOne({
+        where: {
+          id,
+        },
+      })
+      .users();
   }
 }

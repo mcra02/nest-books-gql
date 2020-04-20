@@ -6,6 +6,7 @@ import { PrismaService } from './prisma/prisma.service';
 import { GqlAuthGuard } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { AuthorModule } from './author/author.module';
+import { BookModule } from './book/book.module';
 
 const context = {
   prisma: new PrismaService(),
@@ -27,6 +28,7 @@ const context = {
     UserModule,
     AuthModule,
     AuthorModule,
+    BookModule,
   ],
   providers: [GqlAuthGuard],
 })

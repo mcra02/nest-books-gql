@@ -30,8 +30,6 @@ export class UserService {
       },
     });
 
-    console.log(isUser);
-
     if (isUser) {
       throw new Error('Email is already in use!');
     }

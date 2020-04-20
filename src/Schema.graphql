@@ -19,7 +19,7 @@ type Author {
   id: ID!
   name: String!
   country: String!
-  register_by: Int!
+  register_by: User!
 }
 
 type AuthorSubscriptionPayload {
@@ -27,11 +27,27 @@ type AuthorSubscriptionPayload {
   data: Author!
 }
 
+type Book {
+  title: String!
+  description: String
+  price: Float!
+  quantity: Int!
+  register_by: User!
+  writted_by: Author!
+}
+
+type BookSubscriptionPayload {
+  mutation: String!
+  data: Book!
+}
+
 type Query {
   user(id: ID!): User!
   users: [User!]!
   author(id: ID!): Author!
   authors: [Author!]!
+  book(id: ID!): Book!
+  books: [Book!]!
 }
 
 type Mutation {
@@ -40,6 +56,9 @@ type Mutation {
   createAuthor(data: CreateAuthorInput!): Author!
   updateAuthor(data: UpdateAuthorInput!, id: ID!): Author!
   deleteAuthor(id: ID!): Author!
+  createBook(data: CreateBookInput!): Book!
+  updateBook(data: UpdateBookInput!, id: ID!): Book!
+  deleteBook(id: ID!): Book!
 }
 
 input SignUpInput {
@@ -66,6 +85,25 @@ input UpdateAuthorInput {
   register_by: ID
 }
 
+input CreateBookInput {
+  title: String!
+  description: String
+  price: Float!
+  quantity: Int!
+  register_by: ID!
+  writted_by: ID!
+}
+
+input UpdateBookInput {
+  title: String
+  description: String
+  price: Float
+  quantity: Int
+  register_by: ID
+  writted_by: ID
+}
+
 type Subscription {
   authorsSubscription: AuthorSubscriptionPayload!
+  booksSubscription: BookSubscriptionPayload!
 }

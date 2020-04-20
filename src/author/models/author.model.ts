@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
+import { User } from 'src/user/models/user.model';
 
 @ObjectType()
 export class Author {
@@ -11,8 +12,8 @@ export class Author {
   @Field({ nullable: false })
   country: string;
 
-  @Field(type => Int, { nullable: false })
-  register_by: number;
+  @Field(type => User, { nullable: false })
+  register_by: User;
 }
 
 @ObjectType()
