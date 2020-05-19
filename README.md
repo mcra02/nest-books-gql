@@ -1,6 +1,7 @@
 <p align="center">
     <img src="https://miro.medium.com/max/400/1*nP2C50GK4_-ly_R_mq3juQ.png" width="120" alt="Maicol" />
-    </p>
+   <img src="https://seeklogo.com/images/N/nestjs-logo-09342F76C0-seeklogo.com.png" width="120" alt="Maicol" />    
+</p>
 
 <h1 align="center">
   EXAMPLE NEST GRAPHQL BOOKS
@@ -33,25 +34,31 @@ Simple example developed by [Maicol](https://github.com/mcra02/) implementing a 
    $ yarn install
    ```
 
-4. Run migrations
+4. Save migrations
+
+   ```bash
+   $ npx prisma migrate save --experimental
+   ```
+
+5. Run migrations
 
    ```bash
    $ npx prisma migrate up --experimental
    ```
 
-5. Run generated prisma client
+6. Run generated prisma client
 
    ```bash
    $ npx prisma generate
    ```
 
-6. Run service (dev)
+7. Run service (dev)
 
    ```bash
    $ yarn run watch:dev
    ```
 
-7. Open http://localhost:3000/graphql
+8. Open http://localhost:3000/graphql
 
 # Author
 

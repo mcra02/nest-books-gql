@@ -53,7 +53,7 @@ type Query {
 
 type Mutation {
   signUp(data: SignUpInput!): AuthPayload!
-  login(data: LoginInput!): AuthPayload!
+  signIn(data: LoginInput!): AuthPayload!
   createAuthor(data: CreateAuthorInput!): Author!
   updateAuthor(data: UpdateAuthorInput!, id: ID!): Author!
   deleteAuthor(id: ID!): Author!

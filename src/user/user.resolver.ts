@@ -47,7 +47,7 @@ export class UserResolver {
   }
 
   @Mutation(returns => AuthPayload)
-  async login(@Args('data') data: LoginInput, @Context() { prisma }) {
+  async signIn(@Args('data') data: LoginInput, @Context() { prisma }) {
     return await this.userSevice.login(data, prisma);
   }
 }
