@@ -20,6 +20,14 @@ export class UserResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(returns => User)
+  async me(@Context() { prisma, headers }): Promise<User> {
+    const authorization = headers.authorization;
+    const token = authorization.replace('Bearer ', '');
+    return await this.userSevice.getMe(token, prisma);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(returns => User)
   async user(
     @Args() { id }: getUserArgs,
     @Context() { prisma },

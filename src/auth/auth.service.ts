@@ -15,7 +15,11 @@ export class AuthService {
     return await bcrypt.compare(requestPassword, password);
   }
 
-  async generateToken(id) {
-    return await this.jwt.sign({ id });
+  async generateToken(email) {
+    return await this.jwt.sign({ email });
+  }
+
+  async decodeToken(token) {
+    return await this.jwt.decode(token);
   }
 }

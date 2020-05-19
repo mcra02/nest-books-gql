@@ -1,8 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
+import { prismaVersion } from '@prisma/client';
 @Injectable()
 export class UserService {
   constructor(private readonly authService: AuthService) {}
+
+  async getMe(token: any, prisma) {
+    const decode = await this.authService.decodeToken(token);
+    if (!decode) {
+      throw new Error('This token is invalid');
+    }
+    const user = await prisma.users.findOne({
+      where: {
+        email: decode['email'],
+      },
+    });
+    return user;
+  }
 
   async getUser(id: any, prisma) {
     if (!id) {
@@ -45,7 +59,7 @@ export class UserService {
 
     return {
       user,
-      token: this.authService.generateToken(user.id),
+      token: this.authService.generateToken(user.email),
     };
   }
 
@@ -71,7 +85,7 @@ export class UserService {
 
     return {
       user,
-      token: this.authService.generateToken(user.id),
+      token: this.authService.generateToken(user.email),
     };
   }
 }

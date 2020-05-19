@@ -19,9 +19,11 @@ const context = {
       installSubscriptionHandlers: true,
       autoSchemaFile: './src/Schema.graphql',
       context: Request => {
+        const headers = Request.req.headers;
         return {
           ...Request,
           ...context,
+          headers,
         };
       },
     }),
