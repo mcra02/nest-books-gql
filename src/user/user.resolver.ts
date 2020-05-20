@@ -12,7 +12,8 @@ import { getUserArgs } from './DTO/user.args';
 import { SignUpInput, LoginInput } from './DTO/user.input';
 import { UserService } from './user.service';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from 'src/app.service';
+import { GqlAuthGuard } from 'src/gql.guard';
+import { CurrentUser } from './user.decorator';
 
 @Resolver('User')
 export class UserResolver {
@@ -20,10 +21,11 @@ export class UserResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(returns => User)
-  async me(@Context() { prisma, headers }): Promise<User> {
-    const authorization = headers.authorization;
-    const token = authorization.replace('Bearer ', '');
-    return await this.userSevice.getMe(token, prisma);
+  async me(
+    @Context() { prisma },
+    @CurrentUser('id') id: string
+    ): Promise<User> {
+    return await this.userSevice.getUser(id, prisma);
   }
 
   @UseGuards(GqlAuthGuard)

@@ -13,7 +13,7 @@ import { Author, AuthorSubscriptionPayload } from './models/author.model';
 import { GetAuthorArgs } from './DTO/author.args';
 import { CreateAuthorInput, UpdateAuthorInput } from './DTO/author.input';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from 'src/app.service';
+import { GqlAuthGuard } from 'src/gql.guard';
 
 @Resolver(of => Author)
 export class AuthorResolver {
