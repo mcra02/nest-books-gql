@@ -13,7 +13,7 @@ import { BookService } from './book.service';
 import { GetBookArgs } from './DTO/book.args';
 import { UpdateBookInput, CreateBookInput } from './DTO/book.input';
 import {} from '@nestjs/passport';
-import { GqlAuthGuard } from 'src/app.service';
+import { GqlAuthGuard } from 'src/gql.guard';
 import { UseGuards } from '@nestjs/common';
 
 @Resolver(of => Book)

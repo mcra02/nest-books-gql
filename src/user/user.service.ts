@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
-import { prismaVersion } from '@prisma/client';
+
 @Injectable()
 export class UserService {
   constructor(private readonly authService: AuthService) {}
@@ -59,7 +59,7 @@ export class UserService {
 
     return {
       user,
-      token: this.authService.generateToken(user.email),
+      token: this.authService.generateToken(user),
     };
   }
 
@@ -82,10 +82,11 @@ export class UserService {
     if (!isValidPassword) {
       throw new Error('Email or password incorrect!');
     }
+    delete user['password']
 
     return {
       user,
-      token: this.authService.generateToken(user.email),
+      token: this.authService.generateToken(user),
     };
   }
 }
